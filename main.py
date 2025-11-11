@@ -1,13 +1,14 @@
-print("bad hello world")
+import uvicorn
+from fastapi import FastAPI
 
 
-def func():
-    return True
-    return 8
+app = FastAPI(docs_url="/docs")
 
 
-# bad formatting file example
+@app.get("/health")
+def healthcheck():
+    return {"status": "healthy"}
 
 
-z = False
-print(z[0])
+if __name__ == "__main__":
+    uvicorn.run("main:app", port=8000)
