@@ -14,7 +14,7 @@ line-ending = "auto"
 docstring-code-format = false
 docstring-code-line-length = "dynamic"
 
-[tool.uv.sources]
-torch = [{ index = "pytorch-cu124" }]
-torchvision = [{ index = "pytorch-cu124" }]
-fasttext = { git = "https://github.com/facebookresearch/fastText" }
+[dependency-groups]
+dev = [
+    "ruff>=0.14.4",
+]
