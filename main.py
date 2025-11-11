@@ -1,26 +1,13 @@
-from functools import lru_cache # unused import
-
-
-print('bad hello world')
-
-
-
-
-
+print("bad hello world")
 
 
 def func():
     return True
-    return False
+    return 8
 
 
-
-
-#bad formatting file example
-
+# bad formatting file example
 
 
 z = False
 print(z[0])
-
-
