@@ -1,7 +1,12 @@
 import uvicorn
 
-if __name__ == "__main__":
+
+def main():
     uvicorn.run(
-        "app.main:app",
+        "app.app:app",
         reload=True,
     )
+
+
+if __name__ == "__main__":
+    main()
