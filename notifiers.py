@@ -43,12 +43,16 @@ class BaseNotificator(ABC):
         result = await self.send_message(address, message)
         if result:
             return True
-        logger.error("failed to send")
+        logger.error(
+            f"failed to send {self.__class__.__name__}{', retrying' if max_retries > 0 else ''}"
+        )
         for i in range(max_retries):
             result = await self.send_message(address, message)
             if result:
                 return True
-            logger.error(f"sending retry failed ({i}/{max_retries})")
+            logger.error(
+                f"sending retry {self.__class__.__name__} failed ({i + 1}/{max_retries})"
+            )
         return False
 
     @abstractmethod
@@ -60,10 +64,7 @@ class BaseNotificator(ABC):
         await asyncio.sleep(
             random() * self.max_delay
         )  # wait for the packet to be transmitted
-        if not random() > self.fail_rate:
-            logger.error(f"{self.__class__.__name__} failed")
-            return False
-        return True
+        return random() > self.fail_rate
 
 
 class EmailNotificator(BaseNotificator):
@@ -106,7 +107,7 @@ class SmsNotificator(BaseNotificator):
 
 class TelegramNotificator(BaseNotificator):
     def __init__(self):
-        super().__init__(fail_rate=0.7, max_delay=2)
+        super().__init__(fail_rate=0.9, max_delay=2)
 
     async def send_message(self, address: Address, message: Message) -> bool:
         if not isinstance(address, TelegramAddress):

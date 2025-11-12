@@ -16,6 +16,8 @@ from notifiers import (
     TelegramAddress,
 )
 
+from loguru import logger
+
 
 class JobStatus(str, Enum):
     PENDING = "pending"
@@ -83,6 +85,7 @@ async def multiservice_notify(
                 db["jobs"][job_id].status = JobStatus.SUCCESS
             return True
 
+    logger.error(f"failed to send notifications to {user_id}")
     if job_id:
         db["jobs"][job_id].status = JobStatus.FAILED
     return False
