@@ -9,9 +9,6 @@ dependencies = [
     "uvicorn>=0.38.0",
 ]
 
-[project.scripts]
-mock-notification-sender = "main:main"
-
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
