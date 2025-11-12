@@ -12,8 +12,6 @@ class Message(BaseModel):
     user_id: str
     title: Optional[str]
     message: str
-    # def __repr__(self) -> str:
-    #     return f"message for {self.user_id} with title: {self.title[:50]}: {self.message[:50]}"
 
 
 class BaseNotificator(ABC):
